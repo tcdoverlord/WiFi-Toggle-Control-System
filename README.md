@@ -113,7 +113,7 @@ cd "C:\Update Code"
 ### 🔌 Turn WiFi ON
 
 ```powershell
-.\wifi_switch.ps1 on
+.\wifi_switch.ps1
 ```
 
 ---
@@ -129,7 +129,7 @@ irm https://raw.githubusercontent.com/tcdoverlord/WiFi-Toggle-Control-System/mai
 Then run:
 
 ```powershell
-.\wifi_switch.ps1 on
+.\wifi_switch.ps1
 ```
 
 ---
