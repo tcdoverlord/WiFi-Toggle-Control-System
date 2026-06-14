@@ -7,13 +7,23 @@
   <img src="https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge" />
 </p>
 
+A lightweight PowerShell utility that safely disables and restores WiFi connectivity while helping prevent common network recovery issues such as DHCP failures, missing gateways, DNS problems, and adapter initialization errors.
+
+---
+
+## 🎬 Demo
+
+<p align="center">
+  <img src="wifi-toggle-control-system-demo.gif" alt="WiFi Toggle Control System Demo" />
+</p>
+
 ---
 
 ## 🧠 Overview
 
-**WiFi Toggle Control System** is a lightweight PowerShell utility for Windows that safely enables and disables a WiFi adapter while helping prevent common networking issues that can occur during adapter resets and reconnects.
+Windows networking issues are often solved using aggressive reset methods that can create additional problems.
 
-The utility focuses on controlled adapter management rather than aggressive network repair methods, providing a predictable and reliable way to restore wireless connectivity.
+WiFi Toggle Control System takes a safer approach by performing controlled WiFi adapter operations designed to restore connectivity without modifying the registry, removing adapters, or resetting the entire network stack.
 
 ### Common Issues Addressed
 
@@ -22,40 +32,41 @@ The utility focuses on controlled adapter management rather than aggressive netw
 * DNS resolution failures
 * Adapter initialization delays
 * Virtual adapter conflicts (Hyper-V / VirtualBox)
-* WiFi re-binding and reconnection issues
+* WiFi adapter re-binding issues
+* Failed reconnect states after sleep or adapter resets
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
 ### 🔌 WiFi Control Engine
 
-* Safe WiFi ON/OFF switching
-* Clean adapter state handling
-* Controlled adapter enable/disable operations
-* Optional DHCP release and renewal workflow
+* Safe WiFi ON/OFF operations
+* Controlled adapter enable/disable handling
+* Clean adapter state transitions
+* Optional DHCP renewal workflow
 
-### 🌐 Network Stability Layer
+### 🌐 Network Recovery Assistance
 
-* Waits for adapter readiness before proceeding
+* Waits for adapter readiness
 * Supports proper DHCP negotiation
 * Helps avoid APIPA fallback addresses
-* Restores network routing during reconnect operations
+* Restores network routing after reconnect
 
-### 🧠 Safe Execution Design
+### 🛡️ Safe Execution Design
 
 * No registry modifications
-* No system-wide network resets
-* No adapter bridge manipulation
+* No Winsock resets
+* No adapter recreation
+* No network stack resets
 * No Hyper-V configuration changes
-* Minimal-impact network recovery approach
 
-### 📊 Status & Verification
+### 📊 Verification & Status Reporting
 
-* Real-time terminal feedback
-* Clear ON/OFF status reporting
+* Real-time console feedback
+* Clear operation status messages
 * Connectivity verification checks
-* Easy-to-follow execution flow
+* Simple execution flow
 
 ---
 
@@ -67,16 +78,16 @@ The utility focuses on controlled adapter management rather than aggressive netw
 
 ---
 
-## ⚙️ Installation
+## 📥 Installation
 
-### 📥 Clone Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/tcdoverlord/WiFi-Toggle-Control-System.git
 cd WiFi-Toggle-Control-System
 ```
 
-### 📁 Manual Setup
+### Manual Setup
 
 Create a working directory:
 
@@ -84,7 +95,7 @@ Create a working directory:
 C:\Update Code
 ```
 
-Copy the script into the directory:
+Place the script inside:
 
 ```text
 wifi_switch.ps1
@@ -92,53 +103,45 @@ wifi_switch.ps1
 
 ---
 
-## ▶️ Usage
+## 🚀 Usage
 
-Open PowerShell as **Administrator** and navigate to the script location:
+Open PowerShell as Administrator and navigate to the script directory:
 
 ```powershell
 cd "C:\Update Code"
 ```
 
-### 🔌 Disable WiFi
+### Disable WiFi
 
 ```powershell
 .\wifi_switch.ps1 off
 ```
 
-#### When to Use
+#### Typical Use Cases
 
-The OFF command intentionally disables the WiFi adapter and releases the current network configuration.
-
-Typical use cases include:
-
-* Resetting a stuck WiFi adapter
+* Resetting a stuck adapter
 * Clearing failed connection states
-* Troubleshooting DHCP assignment issues
-* Recovering from unstable network behavior
+* Troubleshooting DHCP issues
+* Recovering from unstable WiFi behavior
 * Testing network recovery procedures
-
-This approach provides a clean starting state without performing destructive network resets.
 
 ---
 
-### 🔌 Enable WiFi
+### Enable WiFi
 
 ```powershell
 .\wifi_switch.ps1 on
 ```
 
-#### What Happens
+#### Recovery Process
 
-The ON command safely restores wireless connectivity by:
+The script will:
 
-* Enabling the WiFi adapter
-* Waiting for adapter initialization
-* Renewing DHCP configuration
-* Verifying network connectivity
-* Confirming successful recovery
-
-This is the recommended method for restoring connectivity after the adapter has been disabled.
+1. Enable the WiFi adapter
+2. Wait for adapter initialization
+3. Renew DHCP configuration
+4. Verify connectivity
+5. Confirm successful recovery
 
 ---
 
@@ -149,9 +152,9 @@ START
   ↓
 Execute ON/OFF Command
   ↓
-Change Adapter State
+Modify Adapter State
   ↓
-Wait for Adapter Readiness
+Wait For Adapter Readiness
   ↓
 DHCP Renewal (ON Only)
   ↓
@@ -167,7 +170,9 @@ END
 ```text
 WiFi-Toggle-Control-System/
 │
+├── LICENSE
 ├── README.md
+├── wifi-toggle-control-system-demo.gif
 └── wifi_switch.ps1
 ```
 
@@ -176,44 +181,46 @@ WiFi-Toggle-Control-System/
 ## 📌 Notes
 
 * Administrator privileges are required.
-* The utility is designed for WiFi adapter management only.
-* Systems using custom adapter names may require minor script adjustments.
-* This tool is intended to provide a safer alternative to full network stack resets.
+* Designed specifically for WiFi adapter management.
+* Custom adapter names may require minor script adjustments.
+* Intended as a safer alternative to full network reset procedures.
 
 ---
 
-## ⚠️ Important Notes
+## ⚠️ Important Information
 
-* Do not use alongside aggressive network reset tools unless troubleshooting.
-* Avoid combining with `netcfg -d` unless performing advanced network repairs.
-* VPN software may temporarily interfere with adapter recovery behavior.
-* Only the targeted WiFi adapter is modified.
+* Avoid combining with aggressive network reset tools unless troubleshooting.
+* VPN software may temporarily affect adapter recovery behavior.
+* Only the selected WiFi adapter is modified.
+* No permanent system changes are made.
 
 ---
 
-## 🎯 Design Goals
+## 🎯 Project Goals
 
-This project was created to provide a reliable alternative to common Windows networking recovery methods that often involve:
+This project was created to provide a reliable alternative to networking repair methods that commonly rely on:
 
 * Full network stack resets
-* Unnecessary adapter removal and recreation
 * Registry modifications
-* Broad system-wide network changes
+* Adapter removal and recreation
+* Broad system-wide networking changes
 
-The goal is simple:
+### Philosophy
 
-> Restore WiFi connectivity safely, predictably, and with the smallest possible impact on the operating system.
+> Restore wireless connectivity safely, predictably, and with the smallest possible impact on the operating system.
 
 ---
 
 ## 👨‍💻 Author
 
-**tcdoverlord**
+**TCDOverLord**
 
 GitHub: https://github.com/tcdoverlord
 
 ---
 
-## ⭐ Purpose
+## 📄 License
 
-A safe, minimal, and predictable WiFi control utility designed to simplify adapter recovery and connectivity restoration while maintaining system stability.
+This project is licensed under the MIT License.
+
+See the LICENSE file for details.
